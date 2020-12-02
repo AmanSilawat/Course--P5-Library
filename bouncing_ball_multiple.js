@@ -3,41 +3,58 @@ let _canvas = {
     height: 400
 }
 
-let _circle = {
-    x: null,
-    y: null,
-    size: 20,
-    x_speed: 8,
-    y_speed: 6,
-    x_direction: null,
-    y_direction: null
-}
-
+let bouncing_ball = [];
 function setup() {
     createCanvas(_canvas.width, _canvas.height);
     frameRate(60);
     ellipseMode(RADIUS)
     noStroke()
-    _circle.x = width / 2;
-    _circle.y = height / 2;
-    _circle.x_direction = random([1, -1]);
-    _circle.y_direction = random([1, -1]);
+    let balls = random(20);
+    for (let i = 0; i < balls; i++) {
+        bouncing_ball.push(new Bouncing_ball());
+    }
 }
 
 function draw() {
-    background(0);
+    background(200);
     
-    _circle.x = _circle.x + _circle.x_speed * _circle.x_direction;
-    _circle.y = _circle.y + _circle.y_speed * _circle.y_direction;
-
-    if (_circle.x > width - _circle.size || _circle.x < _circle.size) {
-        console.log('1')
-        _circle.x_direction *= -1;
+    for (const ball of bouncing_ball) {
+        ball.move();
     }
-    
-    if (_circle.y > height - _circle.size || _circle.y < _circle.size) {
-        _circle.y_direction *= -1;
+}
+
+
+class Bouncing_ball {
+    constructor() {
+        this.x = width / 2;
+        this.y = height / 2;
+        this.size = random(5, 30);
+        this.x_speed = random(0.01, 10);
+        this.y_speed = random(0.01, 10);;
+        this.x_direction = random([1, -1]);
+        this.y_direction = random([1, -1]);
+        this.color = {
+            r: random(255),
+            g: random(255),
+            b: random(255),
+        }
     }
 
-    ellipse(_circle.x, _circle.y, _circle.size, _circle.size);
+    move() {
+        this.x = this.x + this.x_speed * this.x_direction;
+        this.y = this.y + this.y_speed * this.y_direction;
+
+        if (this.x > width - this.size || this.x < this.size) {
+            this.x_direction *= -1;
+        }
+
+        if (this.y > height - this.size || this.y < this.size) {
+            this.y_direction *= -1;
+        }
+
+        fill(this.color.r, this.color.g, this.color.b);
+        noStroke();
+
+        ellipse(this.x, this.y, this.size, this.size);
+    }
 }
