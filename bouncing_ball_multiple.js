@@ -30,7 +30,7 @@ class Bouncing_ball {
         this.y = height / 2;
         this.size = random(5, 30);
         this.x_speed = random(0.01, 10);
-        this.y_speed = random(0.01, 10);;
+        this.y_speed = random(0.01, 10);
         this.x_direction = random([1, -1]);
         this.y_direction = random([1, -1]);
         this.color = {
