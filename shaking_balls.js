@@ -24,6 +24,7 @@ class Bubble {
     constructor() {
         this.x = random(0, width);
         this.y = random(0, height);
+        this.size = random(5, 80);
     }
 
     move() {
@@ -33,8 +34,8 @@ class Bubble {
 
     show() {
         stroke(255);
-        strokeWeight(4);
-        noFill();
-        ellipse(this.x, this.y, 24, 24);
+        strokeWeight(3);
+        fill(0);
+        ellipse(this.x, this.y, this.size);
     }
 }
